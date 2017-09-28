@@ -6,6 +6,7 @@ resources:
 jobs:
 - name: some-job
   plan:
+  - get: input-1
   - task: output-producer
     config:
       platform: linux
@@ -17,4 +18,4 @@ jobs:
         args:
         - -c
         - |
-          cat output
+          cat input-1/output
