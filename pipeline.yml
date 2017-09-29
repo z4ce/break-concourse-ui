@@ -2,13 +2,15 @@ resources:
 - name: input-1
   type: git
   source:
-    uri: https://github.com/z4ce/cf-migrate-mysql.git
+    uri: https://github.com/z4ce/break-concourse-ui.git
 jobs:
 - name: some-job
   plan:
   - get: input-1
   - task: output-producer
     config:
+      inputs:
+      - name: input-1
       platform: linux
       image_resource:
         type: docker-image
@@ -18,4 +20,7 @@ jobs:
         args:
         - -c
         - |
-          cat input-1/output
+          while read p; do
+            echo $p > /dev/tty
+            sleep .18
+          done < input-1/output 
